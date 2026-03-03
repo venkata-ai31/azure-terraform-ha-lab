@@ -8,6 +8,8 @@ on:
 jobs:
   terraform:
     runs-on: ubuntu-latest
+    #Apply approval only for main branch
+    environment: ${{ github.ref == 'refs/heads/main' && 'production' || '' }}
 
     env:
       ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}

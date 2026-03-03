@@ -1,0 +1,39 @@
+name: Terraform Destroy Azure CI/CD
+
+# Manual trigger only
+on:
+  workflow_dispatch:
+
+jobs:
+  terraform-destroy:
+    runs-on: ubuntu-latest
+# 👇 Always require approval for destroy
+    environment: production
+
+    env:
+      ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+      ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+      ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+      ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+      TF_VAR_admin_password: ${{ secrets.TF_VAR_admin_password }}
+
+    steps:
+    # 1️⃣ Checkout repository
+    - name: Checkout repo
+      uses: actions/checkout@v3
+
+    # 2️⃣ Setup Terraform
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v2
+
+    # 3️⃣ Initialize Terraform with remote backend
+    - name: Terraform Init
+      run: terraform init
+
+    # 4️⃣ Validate configuration (optional)
+    - name: Terraform Validate
+      run: terraform validate
+
+    # 5️⃣ Destroy all resources automatically
+    - name: Terraform Destroy All
+      run: terraform destroy -auto-approve

@@ -171,6 +171,7 @@ resource "azurerm_lb_rule" "http_rule" {
   probe_id                       = azurerm_lb_probe.http_probe.id
 }
 
+
 output "load_balancer_public_ip" {
   value = azurerm_public_ip.pip.ip_address
 }
