@@ -85,7 +85,7 @@ resource "azurerm_linux_virtual_machine" "vm" {
   location            = azurerm_resource_group.rg.location
   availability_set_id = azurerm_availability_set.avset.id
 
-  size                            = "Standard_B1s"
+  size                            = "Standard_D2s_v3"
   admin_username                  = "azureuser"
   admin_password                  = var.admin_password
   disable_password_authentication = false
