@@ -1,7 +1,7 @@
 name: Terraform Azure CI/CD
 
 on:
- # workflow_dispatch:
+ # workflow_dispatch test:
   push:
     branches: [ main ]
 
